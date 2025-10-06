@@ -113,17 +113,35 @@
           0 0 8px rgba(255, 90, 0, 0.6),
           inset 0 0 5px rgba(255, 90, 0, 0.4);
       }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    
+      .animate-fadeIn {
+        animation: fadeIn 0.3s ease-in-out;
+      }
   </style>
 </head>
 
 <body class="bg-black text-white font-sans overflow-x-hidden">
 
   <!-- Navbar -->
-  <header class="fixed w-full z-50 bg-black/60 backdrop-blur-sm border-b border-neutral-800">
+  <header class="fixed w-full z-50 backdrop-blur-md bg-black/40 border-b border-white/10">
     <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <!-- Logo -->
       <a href="index.html" class="flex items-center space-x-2">
         <img src="imgs/logo.png" alt="RaceMax Logo" class="w-[140px] max-w-full object-contain">
       </a>
+  
+      <!-- Menú Desktop -->
       <nav class="hidden md:flex space-x-8 text-sm font-semibold">
         <a href="./index.html" class="text-primary">Inicio</a>
         <a href="./nosotros.html" class="hover:text-primary">Nosotros</a>
@@ -133,17 +151,32 @@
         <a href="./index.html#blog" class="hover:text-primary">Blog</a>
         <a href="./contacto.html" class="hover:text-primary">Contacto</a>
       </nav>
-      <button id="menu-btn" class="md:hidden text-2xl">☰</button>
+  
+      <!-- Botón Mobile -->
+      <button id="menu-btn" class="md:hidden text-3xl text-white focus:outline-none transition-transform hover:scale-110">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
     </div>
-
-    <div id="mobile-menu" class="hidden flex-col items-center bg-black border-t border-neutral-800 md:hidden">
-        <a href="./index.html" class="text-primary">Inicio</a>
-        <a href="./nosotros.html" class="hover:text-primary">Nosotros</a>
-        <a href="./juegos.html" class="hover:text-primary">Juegos</a>
-        <a href="./index.html#equipamiento" class="hover:text-primary">Equipamiento</a>
-        <a href="./index.html#eventos" class="hover:text-primary">Eventos</a>
-        <a href="./index.html#blog" class="hover:text-primary">Blog</a>
-        <a href="./contacto.html" class="hover:text-primary">Contacto</a>
+  
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/60 hidden z-40"></div>
+  
+    <!-- Menú móvil -->
+    <div id="mobile-menu"
+         class="fixed inset-y-0 right-0 w-3/4 max-w-xs bg-neutral-900 text-white 
+                transform translate-x-full transition-transform duration-300 ease-in-out 
+                flex flex-col items-center justify-center space-y-6 text-lg font-semibold
+                z-50 md:hidden">
+      <a href="./index.html" class="text-primary hover:text-orange-400">Inicio</a>
+      <a href="./nosotros.html" class="hover:text-orange-400">Nosotros</a>
+      <a href="./juegos.html" class="hover:text-orange-400">Juegos</a>
+      <a href="./index.html#equipamiento" class="hover:text-orange-400">Equipamiento</a>
+      <a href="./index.html#eventos" class="hover:text-orange-400">Eventos</a>
+      <a href="./index.html#blog" class="hover:text-orange-400">Blog</a>
+      <a href="./contacto.html" class="hover:text-orange-400">Contacto</a>
     </div>
   </header>
 
@@ -611,7 +644,27 @@
     // Menú móvil
     const btn = document.getElementById('menu-btn');
     const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+    const overlay = document.getElementById('overlay');
+    const icon = document.getElementById('menu-icon');
+    let isOpen = false;
+
+    const toggleMenu = () => {
+      isOpen = !isOpen;
+      if (isOpen) {
+        menu.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+        // cambiar a "X"
+        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+      } else {
+        menu.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+        // volver al icono ☰
+        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
+      }
+    };
+
+  btn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
 
     // Slider automático
     const slider = document.getElementById('slider');
