@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RaceMAX | Nosotros</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#f97316',
+            dark: '#0a0a0a',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* === ESTÉTICA BASE === */
+    html { scroll-behavior: smooth; }
+    body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; }
+    .animated-bg {
+      background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .animated-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(60deg, rgba(255,100,0,.1) 0, rgba(255,100,0,.1) 2px, transparent 2px, transparent 6px);
+      animation: move 8s linear infinite;
+    }
+    @keyframes move { from {transform: translate(0,0);} to {transform: translate(50px,50px);} }
+
+    /* === EFECTOS === */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .glow { box-shadow: 0 0 10px #ff6600, 0 0 20px #ff3300; }
+    .neon-line { background: linear-gradient(90deg, #ff6600, #ff3300); height: 3px; border-radius: 2px; }
+
+    /* === ROADMAP === */
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, #ff6600, #ff3300);
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 20px 40px;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      top: 25px;
+      right: -7px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ff6600;
+      box-shadow: 0 0 10px #ff6600;
+    }
+    .timeline-item.right { left: 50%; }
+    .timeline-item.left { left: 0; text-align: right; }
+    .timeline-item.left::before {
+      left: -7px;
+      right: auto;
+    }
+
+    .team-card {
+      transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+  
+    .team-card:hover {
+      box-shadow: 0 0 25px #ff6600, 0 0 10px #ff6600;
+      transform: perspective(800px) rotateX(4deg) rotateY(-4deg) scale(1.03);
+    }
+  
+    .team-card img {
+      transition: all 0.4s ease;
+    }
+  
+    .team-card:hover img {
+      filter: brightness(1.1) saturate(1.3);
+    }
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(
+          to right,
+          rgba(243, 78, 22, 0.1),
+          transparent,
+          rgba(243, 78, 22, 0.1)
+      );
+      color: #fff; /* texto blanco sin hover */
+      border: 1px solid #ff5a00;
+      border-radius: 6px;
+      padding: 0.55rem 2rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow:
+        0 0 10px rgba(255, 90, 0, 0.4),
+        inset 0 0 6px rgba(255, 90, 0, 0.25);
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+    /* ==== EFECTO DE RESPLANDOR NARANJA ANIMADO ==== */
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -4em;
+      width: 4em;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 90, 0, 0.15),
+        transparent
+      );
+      transition: transform 0.4s ease-in-out;
+      pointer-events: none;
+    }
+    
+    /* ==== EFECTO HOVER ==== */
+    .btn-primary:hover {
+      background: linear-gradient(
+          to right,
+          transparent,
+          rgba(243, 78, 22, 0.1),
+          transparent
+      );
+      color: #ff5a00;
+      border-color: #ff7a29;
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 25px rgba(255, 90, 0, 0.8),
+        0 0 8px rgba(255, 90, 0, 0.6) inset;
+    }
+    
+    .btn-primary:hover::before {
+      transform: translateX(15em);
+    }
+    
+    /* ==== EFECTO ACTIVE (AL CLIC) ==== */
+    .btn-primary:active {
+      transform: scale(0.97);
+      box-shadow:
+        0 0 8px rgba(255, 90, 0, 0.6),
+        inset 0 0 5px rgba(255, 90, 0, 0.4);
+    }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+  <!-- NAV -->
+  <header class="fixed w-full z-50 bg-black/60 backdrop-blur-sm border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="imgs/logo.png" alt="RaceMax Logo" class="w-[140px] max-w-full object-contain">
+
+      </a>
+      <nav class="hidden md:flex space-x-8 text-sm font-semibold">
+        <a href="./index.html" class="hover:text-primary">Inicio</a>
+        <a href="./nosotros.html" class="text-primary">Nosotros</a>
+        <a href="./juegos.html" class="hover:text-primary">Juegos</a>
+        <a href="./index.html#equipamiento" class="hover:text-primary">Equipamiento</a>
+        <a href="./index.html#eventos" class="hover:text-primary">Eventos</a>
+        <a href="./index.html#blog" class="hover:text-primary">Blog</a>
+        <a href="./contacto.html" class="hover:text-primary">Contacto</a>
+      </nav>
+      <button id="menu-btn" class="md:hidden text-2xl">☰</button>
+    </div>
+
+    <div id="mobile-menu" class="hidden flex-col items-center bg-black border-t border-neutral-800 md:hidden">
+      <a href="./index.html" class="hover:text-primary">Inicio</a>
+      <a href="./nosotros.html" class="text-primary">Nosotros</a>
+      <a href="./juegos.html" class="hover:text-primary">Juegos</a>
+      <a href="./index.html#equipamiento" class="hover:text-primary">Equipamiento</a>
+      <a href="./index.html#eventos" class="hover:text-primary">Eventos</a>
+      <a href="./index.html#blog" class="hover:text-primary">Blog</a>
+      <a href="./contacto.html" class="hover:text-primary">Contacto</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="animated-bg h-[90vh] flex flex-col justify-center items-center text-center relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/90"></div>
+    <div class="relative z-10 px-4">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-3 text-orange-500">Somos RaceMAX</h1>
+      <p class="text-gray-300 max-w-2xl mx-auto text-lg">Donde la ingeniería, la velocidad y la tecnología convergen para redefinir el automovilismo en la era digital.</p>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="max-w-6xl mx-auto py-20 px-6 grid md:grid-cols-2 gap-12 items-center">
+    <div class="fade-in">
+      <h2 class="text-3xl font-bold mb-4 text-orange-400">Nuestra historia</h2>
+      <p class="text-gray-400 leading-relaxed mb-4">
+        RaceMAX nació en 2018 con un objetivo claro: llevar la emoción del automovilismo profesional al corazón de la ciudad. 
+        En el local 2112 del Abasto Shopping, Buenos Aires, instalamos el primer centro de simulación de carreras de nivel profesional abierto al público.
+      </p>
+      <p class="text-gray-400 leading-relaxed">
+        Desde entonces, hemos completado más de <span class="text-orange-500 font-semibold">10,000 carreras simuladas</span>, 
+        con pilotos aficionados, profesionales y marcas que confían en nosotros para eventos y torneos de e-motorsport.
+      </p>
+    </div>
+    <img src="imgs/dentro-local.png" class="rounded-lg shadow-lg fade-in" alt="Sala RaceMAX">
+    <!-- 💡 Imagen sugerida: interior del local con simuladores encendidos y luces naranjas -->
+  </section>
+
+  <!-- MISION & VISION -->
+  <section class="bg-neutral-900 py-20 fade-in">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 px-6">
+      <div>
+        <h3 class="text-2xl font-bold text-orange-400 mb-3">Nuestra Misión</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Democratizar la experiencia de las carreras profesionales, ofreciendo tecnología de simulación de élite accesible para todos, con un enfoque en precisión, inmersión y realismo.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold text-orange-400 mb-3">Nuestra Visión</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Convertirnos en el punto de referencia regional para la simulación de automovilismo competitivo, fusionando el deporte, la innovación y la comunidad de pilotos virtuales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECNOLOGÍA -->
+  <section class="max-w-6xl mx-auto py-20 px-6 fade-in">
+    <h2 class="text-3xl font-bold text-center mb-10 text-orange-500">Tecnología & Innovación</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-neutral-800 p-6 rounded-lg border border-orange-500/30 hover:shadow-[0_0_20px_#ff6600] transition">
+        <h4 class="text-lg font-semibold text-orange-400 mb-2">Simuladores FIA Pro</h4>
+        <p class="text-gray-400 text-sm">Equipados con hardware certificado y sistemas de movimiento dinámico en tiempo real.</p>
+      </div>
+      <div class="bg-neutral-800 p-6 rounded-lg border border-orange-500/30 hover:shadow-[0_0_20px_#ff6600] transition">
+        <h4 class="text-lg font-semibold text-orange-400 mb-2">Entorno 4K Inmersivo</h4>
+        <p class="text-gray-400 text-sm">Pantallas curvas envolventes y sonido envolvente 7.1 para una sensación total de pista.</p>
+      </div>
+      <div class="bg-neutral-800 p-6 rounded-lg border border-orange-500/30 hover:shadow-[0_0_20px_#ff6600] transition">
+        <h4 class="text-lg font-semibold text-orange-400 mb-2">Software Profesional</h4>
+        <p class="text-gray-400 text-sm">Plataformas de simulación de F1, rally y TC2000 con telemetría en tiempo real.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="relative py-24 bg-neutral-950 fade-in">
+    <h2 class="text-3xl font-bold text-center text-orange-500 mb-12">Nuestro camino</h2>
+    <div class="timeline relative max-w-4xl mx-auto">
+      <div class="timeline-item left">
+        <h4 class="text-orange-400 font-semibold">2018 — Fundación</h4>
+        <p class="text-gray-400 text-sm">Inauguramos el primer centro de simulación automovilística profesional en Buenos Aires.</p>
+      </div>
+      <div class="timeline-item right">
+        <h4 class="text-orange-400 font-semibold">2020 — Expansión</h4>
+        <p class="text-gray-400 text-sm">Agregamos simuladores de rally y TC2000, además de los circuitos legendarios de F1.</p>
+      </div>
+      <div class="timeline-item left">
+        <h4 class="text-orange-400 font-semibold">2022 — Eventos Corporativos</h4>
+        <p class="text-gray-400 text-sm">Empresas líderes comenzaron a realizar torneos y experiencias de team building con nosotros.</p>
+      </div>
+      <div class="timeline-item right">
+        <h4 class="text-orange-400 font-semibold">2025 — Innovación Continua</h4>
+        <p class="text-gray-400 text-sm">Implementamos inteligencia artificial para análisis de conducción y feedback personalizado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO RACEMAX -->
+  <section id="equipo" class="py-24 bg-neutral-950 fade-in relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto text-center px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-orange-500 mb-3">Conocé al Equipo RaceMAX</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto mb-12">
+        Somos un grupo de ingenieros, pilotos y entusiastas del automovilismo que compartimos la misma misión: 
+        llevar la emoción y precisión del automovilismo profesional a todos.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-10">
+        <!-- CARD 1 -->
+        <div class="team-card relative bg-neutral-900 rounded-xl p-6 shadow-lg border border-orange-500/20 transition duration-300">
+          <img src="imgs/ivan.png" alt="Iván Daza" class="rounded-lg mb-4 w-full h-64 object-cover">
+          <h3 class="text-xl font-semibold text-orange-400">Iván Daza</h3>
+          <p class="text-gray-400 text-sm mb-3">Fundador & Director Técnico</p>
+          <p class="text-gray-500 text-sm">Apasionado del automovilismo y la tecnología, Iván lidera el desarrollo de nuestros simuladores con precisión milimétrica.</p>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="team-card relative bg-neutral-900 rounded-xl p-6 shadow-lg border border-orange-500/20 transition duration-300">
+          <img src="imgs/camila.png" alt="Camila Torres" class="rounded-lg mb-4 w-full h-64 object-cover">
+          <h3 class="text-xl font-semibold text-orange-400">Camila Torres</h3>
+          <p class="text-gray-400 text-sm mb-3">Experta en Experiencia del Usuario</p>
+          <p class="text-gray-500 text-sm">Diseña cada detalle para que cada piloto viva una experiencia inmersiva, intuitiva y totalmente realista.</p>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="team-card relative bg-neutral-900 rounded-xl p-6 shadow-lg border border-orange-500/20 transition duration-300">
+          <img src="imgs/lucas.png" alt="Lucas Fernández" class="rounded-lg mb-4 w-full h-64 object-cover">
+          <h3 class="text-xl font-semibold text-orange-400">Lucas Fernández</h3>
+          <p class="text-gray-400 text-sm mb-3">Coordinador de Eventos</p>
+          <p class="text-gray-500 text-sm">Organiza torneos, cumpleaños y competencias corporativas con la adrenalina y precisión que nos caracteriza.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA FINAL -->
+  <section class="text-center py-24 bg-gradient-to-b from-black to-neutral-900 fade-in">
+    <h3 class="text-3xl font-bold mb-4 text-orange-500">Vení a conocer el futuro del automovilismo</h3>
+    <p class="text-gray-400 mb-8">Visitá nuestro local en Abasto Shopping y sentí la velocidad como nunca antes.</p>
+    <a href="contacto.html" class="btn-primary">Reservar Experiencia</a>
+  </section>
+
+  <footer class="bg-rm-bg border-t border-rm-line text-rm-copy py-10 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+  
+      <!-- Columna izquierda -->
+      <div class="space-y-4">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+            <img src="imgs/logo.png" alt="RaceMax Logo" class="w-[140px] max-w-full object-contain">
+          </div>
+  
+        <!-- Descripción -->
+        <p class="text-rm-mute text-sm leading-relaxed max-w-md">
+          La experiencia de simulación de carreras más realista de Buenos Aires.  
+          Viví la adrenalina de la F1 con tecnología de última generación.
+        </p>
+  
+        <!-- Info de contacto -->
+        <div class="space-y-2 text-sm text-rm-mute">
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c.75 0 1.5-.5 1.5-1.25S12.75 8.5 12 8.5s-1.5.5-1.5 1.25S11.25 11 12 11zm0 0c0 2.75-3 5.5-3 5.5s3 3 3 3 3-3 3-3-3-2.75-3-5.5z" />
+            </svg>
+            <span>Shopping Abasto, Local 2112, CABA</span>
+          </p>
+  
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75L9 12l6.75-5.25M2.25 6.75v10.5a2.25 2.25 0 002.25 2.25h15a2.25 2.25 0 002.25-2.25V6.75M2.25 6.75l8.25 6.75L18.75 6.75" />
+            </svg>
+            <span>+54 9 11 1234-5678</span>
+          </p>
+  
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 12h.01M12 16h.01M8 12h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+            </svg>
+            <a href="mailto:info@racemax.com.ar" class="hover:text-rm-accent transition">
+              info@racemax.com.ar
+            </a>
+          </p>
+        </div>
+      </div>
+  
+      <!-- Columna derecha -->
+      <div class="space-y-4">
+        <h3 class="font-semibold text-base text-white">Horarios</h3>
+        <div class="space-y-2 text-sm text-rm-mute">
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Lun – Vie: 10:00 – 23:00</span>
+          </p>
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Sáb – Dom: 09:00 – 00:00</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Línea divisoria -->
+    <div class="border-t border-rm-line mt-8 pt-6 text-center text-xs text-rm-mute">
+      © 2025 <span class="text-rm-accent font-medium">RaceMax Simuladores</span>. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(e => e.forEach(x => x.isIntersecting && x.target.classList.add('visible')), { threshold: 0.2 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+    const obsTeam = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+  
+    document.querySelectorAll('.fade-in').forEach(el => obsTeam.observe(el));
+  
+    // Movimiento 3D sutil en las tarjetas del equipo
+    document.querySelectorAll('.team-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateX = ((y / rect.height) - 0.5) * 10;
+        const rotateY = ((x / rect.width) - 0.5) * -10;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)`;
+      });
+    });
+
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RaceMAX | Contacto y Reservas</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#f97316",
+            rm: {
+              bg: "#0a0a0a",
+              panel: "#141414",
+              line: "#232323",
+              copy: "#f2f2f2",
+              mute: "#a1a1a1",
+              accent: "#f97316",
+              
+            },
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+          },
+          boxShadow: {
+            glow: "0 0 30px rgba(249, 115, 22, 0.25)",
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ===== BOTÓN NARANJA GLOW ===== */
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(
+        to right,
+        rgba(243, 78, 22, 0.1),
+        transparent,
+        rgba(243, 78, 22, 0.1)
+      );
+      color: #fff;
+      border: 1px solid #ff5a00;
+      border-radius: 6px;
+      padding: 0.7rem 2.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow:
+        0 0 10px rgba(255, 90, 0, 0.4),
+        inset 0 0 6px rgba(255, 90, 0, 0.25);
+      overflow: hidden;
+      z-index: 0;
+    }
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -4em;
+      width: 4em;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 90, 0, 0.15),
+        transparent
+      );
+      transition: transform 0.4s ease-in-out;
+      pointer-events: none;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(243, 78, 22, 0.1),
+        transparent
+      );
+      color: #ff5a00;
+      border-color: #ff7a29;
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 25px rgba(255, 90, 0, 0.8),
+        0 0 8px rgba(255, 90, 0, 0.6) inset;
+    }
+    .btn-primary:hover::before {
+      transform: translateX(40em);
+    }
+    .btn-primary:active {
+      transform: scale(0.97);
+      box-shadow:
+        0 0 8px rgba(255, 90, 0, 0.6),
+        inset 0 0 5px rgba(255, 90, 0, 0.4);
+    }
+    
+  </style>
+</head>
+
+<body class="bg-rm-bg text-rm-copy font-sans">
+    <header class="fixed w-full z-50 bg-black/60 backdrop-blur-sm border-b border-neutral-800">
+        <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+          <a href="index.html" class="flex items-center space-x-2">
+            <img src="imgs/logo.png" alt="RaceMax Logo" class="w-[140px] max-w-full object-contain">
+          </a>
+          <nav class="hidden md:flex space-x-8 text-sm font-semibold">
+            <a href="./index.html" class="hover:text-primary">Inicio</a>
+            <a href="./nosotros.html" class="hover:text-primary">Nosotros</a>
+            <a href="./juegos.html" class="hover:text-primary">Juegos</a>
+            <a href="./index.html#equipamiento" class="hover:text-primary">Equipamiento</a>
+            <a href="./index.html#eventos" class="hover:text-primary">Eventos</a>
+            <a href="./index.html#blog" class="hover:text-primary">Blog</a>
+            <a href="./contacto.html" class="text-primary">Contacto</a>
+          </nav>
+          <button id="menu-btn" class="md:hidden text-2xl">☰</button>
+        </div>
+    
+        <div id="mobile-menu" class="hidden flex-col items-center bg-black border-t border-neutral-800 md:hidden">
+            <a href="./index.html" class="hover:text-primary">Inicio</a>
+            <a href="./nosotros.html" class="hover:text-primary">Nosotros</a>
+            <a href="./juegos.html" class="hover:text-primary">Juegos</a>
+            <a href="./index.html#equipamiento" class="hover:text-primary">Equipamiento</a>
+            <a href="./index.html#eventos" class="hover:text-primary">Eventos</a>
+            <a href="./index.html#blog" class="hover:text-primary">Blog</a>
+            <a href="./contacto.html" class="text-primary">Contacto</a>
+        </div>
+      </header>
+  <main class="min-h-screen flex flex-col items-center py-16 px-6">
+
+    <!-- Título -->
+    <section class="text-center mt- 20mb-14">
+      <h1 class="text-4xl font-extrabold mb-2">
+        Contacto y <span class="text-rm-accent">reservas</span>
+      </h1>
+      <p class="text-rm-mute text-lg">
+        ¿Listo para vivir la experiencia? Contactanos ahora.
+      </p>
+    </section>
+
+    <!-- Contenedor principal -->
+    <div class="grid lg:grid-cols-2 gap-10 max-w-6xl w-full items-stretch">
+
+      <!-- Formulario -->
+      <div class=" p-8 shadow-lg  transition flex flex-col  justify-between">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Envíanos tu consulta</h2>
+          <p class="text-rm-mute text-sm mb-6">
+            Completá el formulario y te responderemos a la brevedad.
+          </p>
+
+          <form action="mailto:info@racemax.com.ar" method="post" enctype="text/plain" class="space-y-5 flex-1">
+            <div class="grid md:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm mb-1">Nombre</label>
+                <input name="Nombre" type="text" required placeholder="Tu nombre" class="w-full bg-rm-bg border border-rm-line rounded-md px-3 py-2.5 text-sm focus:outline-none focus:border-rm-accent transition">
+              </div>
+              <div>
+                <label class="block text-sm mb-1">Email</label>
+                <input name="Email" type="email" required placeholder="tu@email.com" class="w-full bg-rm-bg border border-rm-line rounded-md px-3 py-2.5 text-sm focus:outline-none focus:border-rm-accent transition">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm mb-1">Teléfono</label>
+              <input name="Teléfono" type="text" placeholder="+54 9 11 1234-5678" class="w-full bg-rm-bg border border-rm-line rounded-md px-3 py-2.5 text-sm focus:outline-none focus:border-rm-accent transition">
+            </div>
+
+            <div class="flex-1">
+              <label class="block text-sm mb-1">Consulta</label>
+              <textarea name="Consulta" rows="4" required placeholder="Contanos sobre tu consulta o el evento que querés organizar..." class="w-full bg-rm-bg border border-rm-line rounded-md px-3 py-2.5 text-sm focus:outline-none focus:border-rm-accent transition"></textarea>
+            </div>
+
+            <div class="pt-4 text-center">
+              <button type="submit" class="btn-primary w-full">
+                Enviar consulta
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Imagen con overlay + info -->
+      <div class="relative rounded-xl overflow-hidden shadow-glow">
+        <img src="imgs/local-racemax.png" alt="Local RaceMAX" class="w-full h-full object-cover object-center opacity-95">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
+        <!-- Texto encima de la imagen -->
+        <div class="absolute bottom-6 left-6 text-white space-y-2">
+          <h3 class="text-2xl font-semibold tracking-wide">RaceMAX</h3>
+          <p class="text-sm text-rm-mute leading-relaxed">
+            Shopping Abasto, Local 2112, CABA<br>
+            Buenos Aires, Argentina<br>
+            <span class="text-rm-accent">+54 9 11 1234-5678</span><br>
+            Lun–Vie: 10:00–23:00 / Sáb–Dom: 09:00–00:00
+          </p>
+        </div>
+      </div>
+
+    </div>
+    
+  </main>
+  <!-- ===== FOOTER RACEMAX ===== -->
+
+    <footer class="bg-rm-bg border-t border-rm-line text-rm-copy py-10 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+  
+      <!-- Columna izquierda -->
+      <div class="space-y-4">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+            <img src="imgs/logo.png" alt="RaceMax Logo" class="w-[140px] max-w-full object-contain">
+          </div>
+  
+        <!-- Descripción -->
+        <p class="text-rm-mute text-sm leading-relaxed max-w-md">
+          La experiencia de simulación de carreras más realista de Buenos Aires.  
+          Viví la adrenalina de la F1 con tecnología de última generación.
+        </p>
+  
+        <!-- Info de contacto -->
+        <div class="space-y-2 text-sm text-rm-mute">
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c.75 0 1.5-.5 1.5-1.25S12.75 8.5 12 8.5s-1.5.5-1.5 1.25S11.25 11 12 11zm0 0c0 2.75-3 5.5-3 5.5s3 3 3 3 3-3 3-3-3-2.75-3-5.5z" />
+            </svg>
+            <span>Shopping Abasto, Local 2112, CABA</span>
+          </p>
+  
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75L9 12l6.75-5.25M2.25 6.75v10.5a2.25 2.25 0 002.25 2.25h15a2.25 2.25 0 002.25-2.25V6.75M2.25 6.75l8.25 6.75L18.75 6.75" />
+            </svg>
+            <span>+54 9 11 1234-5678</span>
+          </p>
+  
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 12h.01M12 16h.01M8 12h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+            </svg>
+            <a href="mailto:info@racemax.com.ar" class="hover:text-rm-accent transition">
+              info@racemax.com.ar
+            </a>
+          </p>
+        </div>
+      </div>
+  
+      <!-- Columna derecha -->
+      <div class="space-y-4">
+        <h3 class="font-semibold text-base text-white">Horarios</h3>
+        <div class="space-y-2 text-sm text-rm-mute">
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Lun – Vie: 10:00 – 23:00</span>
+          </p>
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Sáb – Dom: 09:00 – 00:00</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Línea divisoria -->
+    <div class="border-t border-rm-line mt-8 pt-6 text-center text-xs text-rm-mute">
+      © 2025 <span class="text-rm-accent font-medium">RaceMax Simuladores</span>. Todos los derechos reservados.
+    </div>
+  </footer>
+  
+  <script>
+    // Animación scroll
+    const elements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    elements.forEach(el => observer.observe(el));
+
+    // Menú móvil
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+
+    // Slider automático
+    const slider = document.getElementById('slider');
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % 3;
+      slider.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+  </script>
+</body>
+</html>

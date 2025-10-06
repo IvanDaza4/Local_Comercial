@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RaceMAX | Simulación de Carreras Profesionales</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#f97316',
+            dark: '#0a0a0a',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slider {
+      transition: transform 0.6s ease-in-out;
+    }
+    .btn-primary {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+            to right,
+            rgba(243, 78, 22, 0.1),
+            transparent,
+            rgba(243, 78, 22, 0.1)
+        );
+        color: #fff; /* texto blanco sin hover */
+        border: 1px solid #ff5a00;
+        border-radius: 6px;
+        padding: 0.55rem 2rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.4px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow:
+          0 0 10px rgba(255, 90, 0, 0.4),
+          inset 0 0 6px rgba(255, 90, 0, 0.25);
+        overflow: hidden;
+        z-index: 0;
+      }
+      
+      /* ==== EFECTO DE RESPLANDOR NARANJA ANIMADO ==== */
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -4em;
+        width: 4em;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 90, 0, 0.15),
+          transparent
+        );
+        transition: transform 0.4s ease-in-out;
+        pointer-events: none;
+      }
+      
+      /* ==== EFECTO HOVER ==== */
+      .btn-primary:hover {
+        background: linear-gradient(
+            to right,
+            transparent,
+            rgba(243, 78, 22, 0.1),
+            transparent
+        );
+        color: #ff5a00;
+        border-color: #ff7a29;
+        transform: translateY(-1px);
+        box-shadow:
+          0 0 25px rgba(255, 90, 0, 0.8),
+          0 0 8px rgba(255, 90, 0, 0.6) inset;
+      }
+      
+      .btn-primary:hover::before {
+        transform: translateX(15em);
+      }
+      
+      /* ==== EFECTO ACTIVE (AL CLIC) ==== */
+      .btn-primary:active {
+        transform: scale(0.97);
+        box-shadow:
+          0 0 8px rgba(255, 90, 0, 0.6),
+          inset 0 0 5px rgba(255, 90, 0, 0.4);
+      }
+  </style>
+</head>
+
+<body class="bg-black text-white font-sans overflow-x-hidden">
+
+  <!-- Navbar -->
+  <header class="fixed w-full z-50 bg-black/60 backdrop-blur-sm border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="imgs/logo.png" alt="RaceMax Logo" class="w-[140px] max-w-full object-contain">
+      </a>
+      <nav class="hidden md:flex space-x-8 text-sm font-semibold">
+        <a href="./index.html" class="text-primary">Inicio</a>
+        <a href="./nosotros.html" class="hover:text-primary">Nosotros</a>
+        <a href="./juegos.html" class="hover:text-primary">Juegos</a>
+        <a href="./index.html#equipamiento" class="hover:text-primary">Equipamiento</a>
+        <a href="./index.html#eventos" class="hover:text-primary">Eventos</a>
+        <a href="./index.html#blog" class="hover:text-primary">Blog</a>
+        <a href="./contacto.html" class="hover:text-primary">Contacto</a>
+      </nav>
+      <button id="menu-btn" class="md:hidden text-2xl">☰</button>
+    </div>
+
+    <div id="mobile-menu" class="hidden flex-col items-center bg-black border-t border-neutral-800 md:hidden">
+        <a href="./index.html" class="text-primary">Inicio</a>
+        <a href="./nosotros.html" class="hover:text-primary">Nosotros</a>
+        <a href="./juegos.html" class="hover:text-primary">Juegos</a>
+        <a href="./index.html#equipamiento" class="hover:text-primary">Equipamiento</a>
+        <a href="./index.html#eventos" class="hover:text-primary">Eventos</a>
+        <a href="./index.html#blog" class="hover:text-primary">Blog</a>
+        <a href="./contacto.html" class="hover:text-primary">Contacto</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="inicio" class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('imgs/hero.jpg');">
+    <div class="absolute inset-0 bg-black/70"></div>
+    <div class="relative z-10 text-center px-4 fade-up">
+      <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+        Viví la adrenalina de la <span class="text-primary">pista</span> sin salir de la ciudad
+      </h1>
+      <p class="mt-4 text-gray-300 text-lg">Experimentá la emoción de la Fórmula 1 con nuestros simuladores de última generación</p>
+      <a href="contacto.html" class="btn-primary">Reservar ahora</a>
+    </div>
+  </section>
+
+  <!-- Nuestra Historia -->
+  <section id="nosotros" class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
+    <div class="fade-up">
+      <h2 class="text-3xl font-bold mb-4">Nuestra Historia</h2>
+      <p class="text-gray-400 mb-6">
+        Desde 2018, hemos sido pioneros en ofrecer la experiencia de simulación de carreras más realista y emocionante de la ciudad. Nacimos de la pasión por el automovilismo y la tecnología de vanguardia.
+      </p>
+      <p class="text-gray-400 mb-6">
+        Con simuladores de última generación y circuitos legendarios de todo el mundo, recreamos cada detalle para que vivas la adrenalina de las carreras profesionales sin salir de la ciudad.
+      </p>
+      <div class="flex flex-wrap gap-6 mt-6 text-gray-300">
+        <span>🏎️ Simuladores profesionales</span>
+        <span>🏆 Circuitos oficiales F1</span>
+        <span>👥 Eventos corporativos</span>
+        <span>⚡ Tecnología inmersiva</span>
+      </div>
+    </div>
+    <div class="fade-up delay-100">
+      <img src="imgs/simulador.jpg" alt="Simulador profesional" class="w-full rounded-lg shadow-lg">
+      <p class="text-right pr-4 text-sm text-gray-400 mt-2">5000+ Carreras completadas</p>
+    </div>
+  </section>
+
+  <!-- Nuestra Misión -->
+  <section class="bg-neutral-900 py-16 text-center fade-up">
+    <div class="max-w-3xl mx-auto">
+      <h3 class="text-2xl font-bold mb-4">Nuestra Misión</h3>
+      <p class="text-gray-300">
+        Democratizar la experiencia de las carreras profesionales, ofreciendo a cada piloto la oportunidad de sentir la emoción de competir en los circuitos más famosos del mundo con la tecnología más avanzada disponible.
+      </p>
+    </div>
+  </section>
+
+  <!-- Experiencia -->
+  <section class="relative bg-neutral-950 py-24 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-neutral-900 to-neutral-950 opacity-90"></div>
+  
+    <div class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <!-- Texto -->
+      <div class="space-y-6 animate-fade-in">
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight">
+          La experiencia más <span class="text-primary">realista</span> de simulación
+        </h2>
+        <p class="text-gray-400 text-lg leading-relaxed">
+          Viví la adrenalina de un circuito profesional con equipos de última generación,
+          precisión milimétrica y una inmersión total en cada curva.
+        </p>
+  
+        <div class="grid sm:grid-cols-2 gap-4 mt-8">
+          <div class="flex items-start gap-3 bg-neutral-800/50 p-4 rounded-lg border border-neutral-700 hover:border-primary transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <div>
+              <h4 class="text-white font-semibold">Simuladores profesionales</h4>
+              <p class="text-gray-400 text-sm">Equipos con triple pantalla curva, pedales de competición y volante de alto torque.</p>
+            </div>
+          </div>
+  
+          <div class="flex items-start gap-3 bg-neutral-800/50 p-4 rounded-lg border border-neutral-700 hover:border-primary transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5 8a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <h4 class="text-white font-semibold">50+ circuitos oficiales</h4>
+              <p class="text-gray-400 text-sm">Desde Mónaco hasta Nürburgring: competí en las pistas más icónicas del mundo.</p>
+            </div>
+          </div>
+  
+          <div class="flex items-start gap-3 bg-neutral-800/50 p-4 rounded-lg border border-neutral-700 hover:border-primary transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4" />
+            </svg>
+            <div>
+              <h4 class="text-white font-semibold">Para todos los niveles</h4>
+              <p class="text-gray-400 text-sm">Tanto principiantes como pilotos expertos encuentran su desafío ideal.</p>
+            </div>
+          </div>
+  
+          <div class="flex items-start gap-3 bg-neutral-800/50 p-4 rounded-lg border border-neutral-700 hover:border-primary transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v8m4-4H8" />
+            </svg>
+            <div>
+              <h4 class="text-white font-semibold">+1000 pilotos felices</h4>
+              <p class="text-gray-400 text-sm">Más de mil clientes vivieron la emoción de RaceMAX y siguen volviendo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Imagen -->
+      <div class="relative">
+        <div class="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent rounded-2xl blur-3xl"></div>
+        <img src="imgs/piloto.jpg" alt="Piloto en simulador RaceMAX"
+             class="relative z-10 w-full rounded-2xl shadow-2xl border border-neutral-800 hover:scale-[1.02] transition-transform duration-500" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Juegos / Modos -->
+  <section id="juegos" class="bg-neutral-900 py-20 text-center fade-up">
+    <h2 class="text-3xl font-bold mb-6">Juegos y Modos de Simulación</h2>
+    <p class="text-gray-400 mb-12">Competí en los circuitos más icónicos del planeta: desde la precisión de la F1 hasta la intensidad del Dakar.</p>
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 px-4">
+      <div class="bg-neutral-800 p-4 rounded-lg hover:scale-105 transition">
+        <img src="imgs/dakar.jpg" class="rounded-md mb-3">
+        <h3 class="text-lg font-semibold">Dakar - Empty Quarter</h3>
+        <p class="text-gray-400 text-sm mb-3">La etapa más extrema del rally raid.</p>
+        <button class="btn-primary">Probar Circuito</button>
+      </div>
+      <div class="bg-neutral-800 p-4 rounded-lg hover:scale-105 transition">
+        <img src="imgs/francorchamps.jpeg" class="rounded-md mb-3">
+        <h3 class="text-lg font-semibold">Spa-Francorchamps</h3>
+        <p class="text-gray-400 text-sm mb-3">La curva Eau Rouge más famosa de la F1.</p>
+        <button class="btn-primary">Probar Circuito</button>
+      </div>
+      <div class="bg-neutral-800 p-4 rounded-lg hover:scale-105 transition">
+        <img src="imgs/lemans.webp" class="rounded-md mb-3">
+        <h3 class="text-lg font-semibold">Le Mans Circuit</h3>
+        <p class="text-gray-400 text-sm mb-3">Las 24 horas más legendarias.</p>
+        <button class="btn-primary">Probar Circuito</button>
+      </div>
+    </div>
+  </section>
+  <!-- EQUIPAMIENTO PROFESIONAL -->
+<section id="equipamiento" class="bg-neutral-900 py-20 fade-up">
+    <div class="text-center mb-12 px-6">
+      <h2 class="text-4xl font-bold mb-3">Equipamiento Profesional</h2>
+      <p class="text-gray-400 max-w-3xl mx-auto">
+        Tecnología de vanguardia y equipamiento certificado para brindarte la experiencia de simulación más realista y profesional del mercado.
+      </p>
+    </div>
+  
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+      <!-- TRAJE -->
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition duration-300">
+        <img src="imgs/traje.jpg" class="rounded mb-4 w-full h-64 object-cover">
+        <h3 class="font-semibold text-lg mb-2">Traje de Carrera Profesional</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Trajes ignífugos certificados FIA de última generación, diseñados para máxima comodidad y seguridad durante las sesiones de simulación.
+        </p>
+        <p class="text-sm font-semibold mb-2 text-white">Características:</p>
+        <div class="flex flex-wrap gap-2 text-xs text-gray-300">
+          <span class="bg-neutral-700 px-2 py-1 rounded">Certificación FIA</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Material ignífugo</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Diseño ergonómico</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Tallas XS a XXL</span>
+        </div>
+      </div>
+  
+      <!-- CASCO -->
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition duration-300">
+        <img src="imgs/Casco.jpg" class="rounded mb-4 w-full h-64 object-cover">
+        <h3 class="font-semibold text-lg mb-2">Casco de Competición</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Cascos profesionales con tecnología de comunicación integrada y visores anti-empañamiento para una experiencia completamente inmersiva.
+        </p>
+        <p class="text-sm font-semibold mb-2 text-white">Características:</p>
+        <div class="flex flex-wrap gap-2 text-xs text-gray-300">
+          <span class="bg-neutral-700 px-2 py-1 rounded">Comunicación integrada</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Visor anti-empañamiento</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Ventilación avanzada</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Peso ultraligero</span>
+        </div>
+      </div>
+  
+      <!-- VOLANTE -->
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition duration-300">
+        <img src="imgs/Volante.png" class="rounded mb-4 w-full h-64 object-cover">
+        <h3 class="font-semibold text-lg mb-2">Volante F1 Certificado FIA</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Réplica exacta de volantes utilizados en Fórmula 1, con todos los controles y funciones de un monoplaza real certificado por la FIA.
+        </p>
+        <p class="text-sm font-semibold mb-2 text-white">Características:</p>
+        <div class="flex flex-wrap gap-2 text-xs text-gray-300">
+          <span class="bg-neutral-700 px-2 py-1 rounded">Certificación FIA oficial</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Controles reales de F1</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Force feedback premium</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Botones programables</span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- SEGUNDA FILA -->
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 mt-10">
+      <!-- PANTALLAS -->
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition duration-300">
+        <img src="imgs/pantallas.png" class="rounded mb-4 w-full h-64 object-cover">
+        <h3 class="font-semibold text-lg mb-2">Tres Pantallas Curvas 4K</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Sistema de triple pantalla curva de 32” configuradas horizontalmente para un campo de visión panorámico de 180°.
+        </p>
+        <p class="text-sm font-semibold mb-2 text-white">Características:</p>
+        <div class="flex flex-wrap gap-2 text-xs text-gray-300">
+          <span class="bg-neutral-700 px-2 py-1 rounded">Resolución 4K</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Curvatura 1800R</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Frecuencia 144 Hz</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Campo de visión 180°</span>
+        </div>
+      </div>
+  
+      <!-- SENSORES -->
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition duration-300">
+        <img src="imgs/sensores.jpg" class="rounded mb-4 w-full h-64 object-cover">
+        <h3 class="font-semibold text-lg mb-2">Sensores de Movimiento</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Sistema avanzado de sensores que detectan cada movimiento y lo traducen en tiempo real para una conducción ultra realista.
+        </p>
+        <p class="text-sm font-semibold mb-2 text-white">Características:</p>
+        <div class="flex flex-wrap gap-2 text-xs text-gray-300">
+          <span class="bg-neutral-700 px-2 py-1 rounded">Detección en tiempo real</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Precisión submilimétrica</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Respuesta instantánea</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Calibración automática</span>
+        </div>
+      </div>
+  
+      <!-- BUTACAS -->
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition duration-300">
+        <img src="imgs/Butaca.PNG" class="rounded mb-4 w-full h-64 object-cover">
+        <h3 class="font-semibold text-lg mb-2">Butacas de Competición</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Asientos de competición profesionales con soporte lumbar ajustable y arnés de seguridad de 6 puntos para máximo realismo.
+        </p>
+        <p class="text-sm font-semibold mb-2 text-white">Características:</p>
+        <div class="flex flex-wrap gap-2 text-xs text-gray-300">
+          <span class="bg-neutral-700 px-2 py-1 rounded">Soporte lumbar ajustable</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Arnés 6 puntos</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Material premium</span>
+          <span class="bg-neutral-700 px-2 py-1 rounded">Ajuste personalizable</span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- CTA FINAL -->
+    <div class="max-w-3xl mx-auto mt-16 text-center bg-neutral-800 p-8 rounded-lg border border-neutral-700">
+      <h3 class="text-2xl font-bold mb-3">¿Listo para la Experiencia Completa?</h3>
+      <p class="text-gray-300 mb-6">Reservá tu sesión y viví el automovilismo con el equipamiento más avanzado y profesional del mercado.</p>
+      <a href="contacto.html" class="btn-primary">Reservar Experiencia</a>
+    </div>
+  </section>
+  
+
+  <section id="eventos" class="relative py-24 bg-gradient-to-b from-black via-neutral-900 to-black overflow-hidden">
+    <!-- textura de fondo -->
+    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre-big.png')]"></div>
+  
+    <div class="relative max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">
+        Eventos <span class="text-orange-500">especiales</span>
+      </h2>
+      <p class="text-gray-400 text-lg mb-16 max-w-2xl mx-auto">
+        Organizamos experiencias únicas con simuladores de carrera de última generación, para todo tipo de ocasión.
+      </p>
+  
+      <div class="grid md:grid-cols-3 gap-10">
+        <!-- 🎂 Cumpleaños -->
+        <div class="group relative flex flex-col justify-between bg-gradient-to-b from-neutral-800/90 to-neutral-900 rounded-2xl border border-neutral-700 p-8 shadow-lg hover:shadow-orange-500/20 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-orange-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+          <!-- Icono SVG -->
+          <div class="mx-auto mb-6 text-orange-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 11V6a2 2 0 114 0v5m2-5a2 2 0 114 0v5m-6 4h8a4 4 0 014 4v2H3v-2a4 4 0 014-4z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-3">Cumpleaños</h3>
+          <p class="text-gray-400 text-sm mb-4">
+            Sorprendé con una experiencia única al volante. Espacio exclusivo, ambientación temática y diversión asegurada.
+          </p>
+          <ul class="text-gray-400 text-sm space-y-2 mb-6 text-left">
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Decoración personalizada</li>
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Fotos profesionales</li>
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Catering opcional</li>
+          </ul>
+          <a href="contacto.html" class="btn-primary w-full py-2 rounded-lg font-semibold transition-all hover:scale-105">
+            Cotizá tu evento
+          </a>
+        </div>
+  
+        <!-- 🤝 Eventos Corporativos -->
+        <div class="group relative flex flex-col justify-between bg-gradient-to-b from-neutral-800/90 to-neutral-900 rounded-2xl border border-neutral-700 p-8 shadow-lg hover:shadow-orange-500/20 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-orange-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+          <div class="mx-auto mb-6 text-orange-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v10h-6V8zM9 8H7a2 2 0 00-2 2v10h6V8zM12 3v18" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-3">Eventos Corporativos</h3>
+          <p class="text-gray-400 text-sm mb-4">
+            Fortalecé el trabajo en equipo con una jornada de adrenalina y competencia sana entre colegas.
+          </p>
+          <ul class="text-gray-400 text-sm space-y-2 mb-6 text-left">
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Team building</li>
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Catering ejecutivo</li>
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Ranking y podio final</li>
+          </ul>
+          <a href="contacto.html" class="btn-primary w-full py-2 rounded-lg font-semibold transition-all hover:scale-105">
+            Cotizá tu evento
+          </a>
+        </div>
+  
+        <!-- 🏆 Torneos -->
+        <div class="group relative flex flex-col justify-between bg-gradient-to-b from-neutral-800/90 to-neutral-900 rounded-2xl border border-neutral-700 p-8 shadow-lg hover:shadow-orange-500/20 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-orange-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+          <div class="mx-auto mb-6 text-orange-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8M12 17v4M7 4h10a1 1 0 011 1v2a5 5 0 01-5 5H11a5 5 0 01-5-5V5a1 1 0 011-1zM5 8H4a2 2 0 00-2 2v2a2 2 0 002 2h1M19 8h1a2 2 0 012 2v2a2 2 0 01-2 2h-1" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-3">Torneos</h3>
+          <p class="text-gray-400 text-sm mb-4">
+            Competencias oficiales y amateurs con sistema de clasificación, transmisión y premios para los ganadores.
+          </p>
+          <ul class="text-gray-400 text-sm space-y-2 mb-6 text-left">
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Premios exclusivos</li>
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Transmisión en vivo</li>
+            <li class="flex items-center gap-2"><span class="text-orange-400">▸</span> Ranking mensual</li>
+          </ul>
+          <a href="contacto.html" class="btn-primary w-full py-2 rounded-lg font-semibold transition-all hover:scale-105">
+            Cotizá tu evento
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 💬 FAQ -->
+  <section id="faq" class="py-24 bg-black text-white relative overflow-hidden">
+    <!-- textura carbono sutil -->
+    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre-big.png')]"></div>
+  
+    <div class="relative max-w-4xl mx-auto px-6">
+      <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-6">
+        Preguntas <span class="text-orange-500">frecuentes</span>
+      </h2>
+      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Respondemos tus dudas más comunes sobre la experiencia, reservas y servicios en nuestro simulador.
+      </p>
+  
+      <div id="faq-container" class="space-y-4">
+        <!-- Se llenará dinámicamente -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="bg-neutral-900 py-20 fade-up">
+    <h2 class="text-3xl font-bold text-center mb-8">Blog y <span class="text-primary">novedades</span></h2>
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition">
+        <img src="imgs/autodromo-oscar-galvez-buenos-aires-aerial-view-with.jpg" class="rounded mb-3">
+        <h3 class="font-semibold">Los mejores circuitos de F1 para principiantes</h3>
+        <p class="text-gray-400 text-sm">Descubrí los circuitos más amigables para comenzar tu experiencia.</p>
+      </div>
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition">
+        <img src="imgs/racing-car-braking-technique-close-up.jpg" class="rounded mb-3">
+        <h3 class="font-semibold">Técnicas avanzadas de frenado</h3>
+        <p class="text-gray-400 text-sm">Aprendé cómo los pilotos profesionales optimizan cada curva.</p>
+      </div>
+      <div class="bg-neutral-800 p-5 rounded-lg hover:-translate-y-2 transition">
+        <img src="imgs/evolution-of-racing-simulators-technology.jpg" class="rounded mb-3">
+        <h3 class="font-semibold">Historia de los simuladores de carreras</h3>
+        <p class="text-gray-400 text-sm">Un recorrido por la evolución de la simulación automovilística.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-rm-bg border-t border-rm-line text-rm-copy py-10 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+  
+      <!-- Columna izquierda -->
+      <div class="space-y-4">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+            <img src="imgs/logo.png" alt="RaceMax Logo" class="w-[140px] max-w-full object-contain">
+          </div>
+  
+        <!-- Descripción -->
+        <p class="text-rm-mute text-sm leading-relaxed max-w-md">
+          La experiencia de simulación de carreras más realista de Buenos Aires.  
+          Viví la adrenalina de la F1 con tecnología de última generación.
+        </p>
+  
+        <!-- Info de contacto -->
+        <div class="space-y-2 text-sm text-rm-mute">
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c.75 0 1.5-.5 1.5-1.25S12.75 8.5 12 8.5s-1.5.5-1.5 1.25S11.25 11 12 11zm0 0c0 2.75-3 5.5-3 5.5s3 3 3 3 3-3 3-3-3-2.75-3-5.5z" />
+            </svg>
+            <span>Shopping Abasto, Local 2112, CABA</span>
+          </p>
+  
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75L9 12l6.75-5.25M2.25 6.75v10.5a2.25 2.25 0 002.25 2.25h15a2.25 2.25 0 002.25-2.25V6.75M2.25 6.75l8.25 6.75L18.75 6.75" />
+            </svg>
+            <span>+54 9 11 1234-5678</span>
+          </p>
+  
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 12h.01M12 16h.01M8 12h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+            </svg>
+            <a href="mailto:info@racemax.com.ar" class="hover:text-rm-accent transition">
+              info@racemax.com.ar
+            </a>
+          </p>
+        </div>
+      </div>
+  
+      <!-- Columna derecha -->
+      <div class="space-y-4">
+        <h3 class="font-semibold text-base text-white">Horarios</h3>
+        <div class="space-y-2 text-sm text-rm-mute">
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Lun – Vie: 10:00 – 23:00</span>
+          </p>
+          <p class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rm-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Sáb – Dom: 09:00 – 00:00</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Línea divisoria -->
+    <div class="border-t border-rm-line mt-8 pt-6 text-center text-xs text-rm-mute">
+      © 2025 <span class="text-rm-accent font-medium">RaceMax Simuladores</span>. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Animación scroll
+    const elements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    elements.forEach(el => observer.observe(el));
+
+    // Menú móvil
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+
+    // Slider automático
+    const slider = document.getElementById('slider');
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % 3;
+      slider.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+
+    const faqs = [
+    {
+      question: "¿Necesito experiencia previa para usar los simuladores?",
+      answer:
+        "No es necesario tener experiencia previa. Nuestros instructores te guiarán desde el primer momento y adaptaremos la dificultad según tu nivel.",
+    },
+    {
+      question: "¿Qué edad mínima se requiere?",
+      answer:
+        "La edad mínima es de 12 años. Los menores de 16 años deben estar acompañados por un adulto responsable.",
+    },
+    {
+      question: "¿Puedo cancelar o reprogramar mi reserva?",
+      answer:
+        "Sí, puedes cancelar o reprogramar tu reserva hasta 24 horas antes de la sesión sin costo adicional.",
+    },
+    {
+      question: "¿Qué incluye la sesión?",
+      answer:
+        "Cada sesión incluye instrucción básica, uso del simulador, análisis de rendimiento y foto de recuerdo. Los paquetes premium incluyen beneficios adicionales.",
+    },
+    {
+      question: "¿Tienen estacionamiento disponible?",
+      answer:
+        "Sí, contamos con estacionamiento gratuito para nuestros clientes en el mismo edificio.",
+    },
+    {
+      question: "¿Qué medidas de seguridad implementan?",
+      answer:
+        "Todos nuestros equipos se desinfectan después de cada uso. Proporcionamos cascos individuales y seguimos estrictos protocolos de higiene.",
+    },
+  ];
+
+  const faqContainer = document.getElementById("faq-container");
+
+  faqs.forEach((faq) => {
+    const details = document.createElement("details");
+    details.className =
+      "group bg-neutral-900 rounded-xl border border-neutral-800 p-5 transition-all hover:border-orange-500/60 hover:bg-neutral-800/70";
+
+    details.innerHTML = `
+      <summary class="cursor-pointer flex justify-between items-center text-lg font-semibold text-white select-none">
+        <span>${faq.question}</span>
+        <span class="transition-transform duration-300 text-orange-400 group-open:rotate-45">＋</span>
+      </summary>
+      <p class="text-gray-400 mt-3 pl-1 leading-relaxed">${faq.answer}</p>
+    `;
+
+    faqContainer.appendChild(details);
+  });
+  </script>
+</body>
+</html>
