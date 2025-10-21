@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones - RaceMAX</title>
+    <link rel="stylesheet" href="promociones.css">
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="your-video-file.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="RaceMAX Logo" class="logo-img">
+            </div>
+            <nav class="nav">
+                <a href="index.html">Inicio</a>
+                <a href="#">Nosotros</a>
+                <a href="#">Juegos</a>
+                <a href="#">Equipamiento</a>
+                <a href="#">Eventos</a>
+                <a href="#">Blog</a>
+                <a href="#">Contacto</a>
+                <a href="promociones.html" class="active">Promociones</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Promociones <span class="accent">especiales</span></h1>
+            <p class="hero-subtitle">Elegí tu paquete y descubrí cuánto ahorrás en la experiencia más realista de simulación</p>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-grid">
+                
+                <!-- Package 1: Colapinto -->
+                <div class="pricing-card" data-package="colapinto">
+                    <!-- Added helmet image in top right corner -->
+                    <div class="helmet-image" >
+                        <img src="/imgs/colapinto.png" alt="Casco Colapinto" >
+                    </div>
+                    
+                    <div class="card-icon">
+                        
+                    </div>
+                    
+                    <!-- Changed name from Rookie to Colapinto -->
+                    <h3 class="package-name">Franco Colapinto</h3>
+                    <p class="package-desc">Sorprendé con una experiencia única al volante. Espacio exclusivo, ambientación temática y diversión asegurada.</p>
+                    
+                    <div class="price-container">
+                        <div class="price-original">Precio normal: $15,000</div>
+                        <div class="price-current">
+                            <span class="currency">$</span>
+                            <span class="amount">9,990</span>
+                        </div>
+                        <div class="discount-badge">
+                            Ahorrás $5,010
+                        </div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li>▸ 1 hora de simulación</li>
+                        <li>▸ 5 circuitos disponibles</li>
+                        <li>▸ Equipamiento básico</li>
+                        <li>▸ Foto digital incluida</li>
+                    </ul>
+                    
+                    <!-- Updated onclick to use new package name -->
+                    <button class="select-btn" onclick="selectPackage('colapinto', 9990, 5010)">
+                        Cotizá tu evento
+                    </button>
+                </div>
+
+                <!-- Package 2: Hamilton (Recommended) -->
+                <div class="pricing-card featured" data-package="hamilton">
+                    
+                    <!-- Added helmet image in top right corner -->
+                    <div class="helmet-image">
+                        <img src="/imgs/hamilton.png" alt="Casco Hamilton">
+                    </div>
+                    
+                    <div class="card-icon">
+                        
+                    </div>
+                    
+                    <!-- Changed name from Pro to Hamilton -->
+                    <h3 class="package-name">Lewis Hamilton</h3>
+                    <p class="package-desc">Fortalecé el trabajo en equipo con una jornada de adrenalina y competencia sana entre colegas.</p>
+                    
+                    <div class="price-container">
+                        <div class="price-original">Precio normal: $28,000</div>
+                        <div class="price-current">
+                            <span class="currency">$</span>
+                            <span class="amount">17,990</span>
+                        </div>
+                        <div class="discount-badge">
+                            Ahorrás $10,010
+                        </div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li>▸ 2 horas de simulación</li>
+                        <li>▸ Todos los circuitos (50+)</li>
+                        <li>▸ Equipamiento profesional</li>
+                        <li>▸ Traje de carrera FIA</li>
+                        <li>▸ Sesión fotográfica profesional</li>
+                        <li>▸ Análisis de telemetría</li>
+                    </ul>
+                    
+                    <!-- Updated onclick to use new package name -->
+                    <button class="select-btn" onclick="selectPackage('hamilton', 17990, 10010)">
+                        Cotizá tu evento
+                    </button>
+                </div>
+
+                <!-- Package 3: Ayrton Senna -->
+                <div class="pricing-card" data-package="senna">
+                    <!-- Added helmet image in top right corner -->
+                    <div class="helmet-image">
+                        <img src="/imgs/max.png" alt="Casco Ayrton Senna">
+                    </div>
+                    
+                    <div class="card-icon">
+                        
+                    </div>
+                    
+                    <!-- Changed name from Champion to Ayrton Senna -->
+                    <h3 class="package-name">Max Verstappen </h3>
+                    <p class="package-desc">Competencias oficiales y amateurs con sistema de clasificación, transmisión y premios para los ganadores.</p>
+                    
+                    <div class="price-container">
+                        <div class="price-original">Precio normal: $45,000</div>
+                        <div class="price-current">
+                            <span class="currency">$</span>
+                            <span class="amount">29,990</span>
+                        </div>
+                        <div class="discount-badge">
+                            Ahorrás $15,010
+                        </div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li>▸ 4 horas de simulación</li>
+                        <li>▸ Todos los circuitos premium</li>
+                        <li>▸ Simulador VIP exclusivo</li>
+                        <li>▸ Traje y casco personalizados</li>
+                        <li>▸ Video profesional 4K</li>
+                        <li>▸ Coaching personalizado</li>
+                        <li>▸ Bebidas y snacks premium</li>
+                        <li>▸ Certificado de participación</li>
+                    </ul>
+                    
+                    <!-- Updated onclick to use new package name -->
+                    <button class="select-btn" onclick="selectPackage('senna', 29990, 15010)">
+                        Cotizá tu evento
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section" id="calculator">
+        <div class="container">
+            <div class="calculator-card">
+                <h2 class="calculator-title">Calculá <span class="accent">tu Ahorro</span></h2>
+                <p class="calculator-subtitle">Personalizá tu experiencia y descubrí cuánto ahorrás</p>
+                
+                <div class="calculator-content">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="package-select">Paquete Seleccionado</label>
+                            <!-- Updated select options with new package names -->
+                            <select id="package-select" onchange="updateCalculator()">
+                                <option value="">Elegí un paquete</option>
+                                <option value="colapinto">Colapinto - $9,990</option>
+                                <option value="hamilton">Hamilton - $17,990</option>
+                                <option value="senna">Ayrton Senna - $29,990</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sessions">Cantidad de Sesiones</label>
+                            <input type="number" id="sessions" min="1" max="20" value="1" onchange="updateCalculator()">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="extras">Extras Opcionales</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="2000" onchange="updateCalculator()">
+                                    <span>Video adicional (+$2,000)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="1500" onchange="updateCalculator()">
+                                    <span>Fotos impresas (+$1,500)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="3000" onchange="updateCalculator()">
+                                    <span>Invitado extra (+$3,000)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-results">
+                        <div class="result-row">
+                            <span class="result-label">Precio Original:</span>
+                            <span class="result-value" id="original-price">$0</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Precio con Descuento:</span>
+                            <span class="result-value" id="discounted-price">$0</span>
+                        </div>
+                        <div class="result-row savings">
+                            <span class="result-label">Total Ahorrado:</span>
+                            <span class="result-value savings-value" id="total-savings">$0</span>
+                        </div>
+                        <div class="result-row total">
+                            <span class="result-label">Total a Pagar:</span>
+                            <span class="result-value total-value" id="final-price">$0</span>
+                        </div>
+                        
+                        <button class="reserve-btn" onclick="window.location.href='contacto.html'">
+                            Reservar Ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 RaceMAX. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="promociones.js"></script>
+</body>
+</html>

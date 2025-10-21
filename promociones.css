@@ -1,0 +1,589 @@
+/* Updated entire color scheme to match your site's orange (#ff6b35) and dark backgrounds */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    /* Colors matching your existing site */
+    --color-black: #000000;
+    --color-dark: #0f0f0f;
+    --color-dark-gray: #1a1a1a;
+    --color-card-bg: #2a2a2a;
+    --color-gray: #fff;
+    --color-light-gray: #fff;
+    --color-white: #ffffff;
+    --color-orange: #ff6b35;
+    --color-orange-glow: rgba(255, 107, 53, 0.3);
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--color-black);
+    color: var(--color-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  /* Video Background */
+  .video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+  }
+  
+  .video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.25) contrast(1.3);
+  }
+  
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.9) 100%);
+  }
+  
+  /* Container */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* Header */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+  
+  .logo-img {
+    height: 40px;
+    width: auto;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+  
+  .nav a {
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+  
+  .nav a:hover,
+  .nav a.active {
+    color: var(--color-orange);
+  }
+  
+  /* Hero Section */
+  .hero {
+    padding: 180px 0 80px;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    color: var(--color-white);
+  }
+  
+  .hero-title .accent {
+    color: var(--color-orange);
+  }
+  
+  .hero-subtitle {
+    font-size: 18px;
+    color: var(--color-light-gray);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  /* Pricing Section */
+  .pricing-section {
+    padding: 60px 0 100px;
+  }
+  
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  
+  /* Updated card styling to match your site's dark cards with rounded corners */
+  .pricing-card {
+    background: var(--color-card-bg);
+    border-radius: 20px;
+    padding: 40px 30px;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    overflow: visible; /* Allow helmet to overflow slightly */
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7);
+  }
+  
+  .select-btn {
+    margin-top: auto; /* ✅ Empuja el botón al final */
+  }
+  .pricing-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-orange);
+    box-shadow: 0 10px 40px rgba(255, 107, 53, 0.2);
+  }
+  
+  .pricing-card.featured {
+    border: 2px solid var(--color-orange);
+    background: var(--color-card-bg);
+  }
+  
+  .recommended-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--color-orange);
+    color: var(--color-white);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10; /* Ensure badge appears above helmet */
+  }
+  
+  /* Added helmet image styling for top right corner */
+  .helmet-image {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 140px;
+    z-index: 5;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s ease;
+  }
+  
+  .pricing-card:hover .helmet-image {
+    transform: translate(-50%, -5px) rotate(5deg);
+  }
+
+
+  .helmet-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    ;
+  }
+  
+  
+  
+  /* Adjust featured card helmet to not overlap with recommended badge */
+  
+  
+  /* Orange icons matching your site style */
+  .card-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 25px;
+    color: var(--color-orange);
+  }
+  
+  .card-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 1.5;
+  }
+  
+  .package-name {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--color-white);
+  }
+  
+  .package-desc {
+    color: var(--color-light-gray);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    min-height: 60px;
+  }
+  
+  .price-container {
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .price-original {
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 10px;
+  }
+  
+  .price-current {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 15px;
+  }
+  
+  .currency {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+  
+  .amount {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-white);
+  }
+  
+  .discount-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid var(--color-orange);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-orange);
+  }
+  
+  .features-list {
+    list-style: none;
+    margin-bottom: 30px;
+  }
+  
+  .features-list li {
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--color-light-gray);
+    line-height: 1.5;
+  }
+  
+  /* Orange outlined button matching your site */
+  .select-btn {
+    width: 100%;
+    padding: 16px;
+    background: transparent;
+    color: var(--color-orange);
+    border: 2px solid var(--color-orange);
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .select-btn:hover {
+    background: var(--color-orange);
+    color: var(--color-white);
+  }
+  
+  /* Calculator Section */
+  .calculator-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  }
+  
+  .calculator-card {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--color-card-bg);
+    border-radius: 20px;
+    padding: 60px 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .calculator-title {
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--color-white);
+  }
+  
+  .calculator-title .accent {
+    color: var(--color-orange);
+  }
+  
+  .calculator-subtitle {
+    text-align: center;
+    color: var(--color-light-gray);
+    font-size: 16px;
+    margin-bottom: 50px;
+  }
+  
+  .calculator-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  
+  .form-group {
+    margin-bottom: 30px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-light-gray);
+  }
+  
+  .form-group select,
+  .form-group input {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-dark);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: var(--color-white);
+    font-size: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group select:focus,
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--color-orange);
+    box-shadow: 0 0 0 3px var(--color-orange-glow);
+  }
+  
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 12px;
+    background: var(--color-dark);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+  
+  .checkbox-label:hover {
+    border-color: var(--color-orange);
+    background: rgba(255, 107, 53, 0.05);
+  }
+  
+  .checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--color-orange);
+  }
+  
+  .checkbox-label span {
+    color: var(--color-light-gray);
+    font-size: 14px;
+  }
+  
+  .calculator-results {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+    background: var(--color-dark);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+  }
+  
+  .result-label {
+    font-size: 14px;
+    color: var(--color-light-gray);
+    font-weight: 500;
+  }
+  
+  .result-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+  
+  .result-row.savings {
+    background: rgba(255, 107, 53, 0.1);
+    padding: 18px;
+    border-radius: 8px;
+    margin: 10px 0;
+    border: 1px solid var(--color-orange);
+  }
+  
+  .savings-value {
+    color: var(--color-orange);
+    font-size: 28px;
+  }
+  
+  .result-row.total {
+    background: rgba(255, 107, 53, 0.15);
+    padding: 18px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--color-orange);
+  }
+  
+  .total-value {
+    color: var(--color-orange);
+    font-size: 32px;
+  }
+  
+  .reserve-btn {
+    width: 100%;
+    padding: 18px;
+    background: transparent;
+    color: var(--color-orange);
+    border: 2px solid var(--color-orange);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .reserve-btn:hover {
+    background: var(--color-orange);
+    color: var(--color-white);
+  }
+
+  /* Imagen de fondo translúcida para la card Colapinto */
+    .pricing-card[data-package="colapinto"] {
+        background: linear-gradient(
+            rgba(0, 0, 0, 0.7), 
+            rgba(0, 0, 0, 0.7)
+        ),
+        url('/imgs/ct.png');
+        background-size: cover;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        position: relative;
+         border: 2px solid var(--color-orange); 
+    }
+
+    .pricing-card[data-package="hamilton"] {
+        background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/imgs/ht.png');
+        background-size: cover;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        border: 2px solid var(--color-orange);
+      }
+      
+      .pricing-card[data-package="senna"] {
+        background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/imgs/mt.png');
+        background-size:cover;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        border: 2px solid var(--color-orange);
+      }
+  
+  /* Footer */
+  .footer {
+    padding: 40px 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .footer p {
+    color: var(--color-light-gray);
+    font-size: 14px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .pricing-grid {
+      grid-template-columns: 1fr;
+      max-width: 500px;
+    }
+  
+    .calculator-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 42px;
+    }
+  
+    .hero-subtitle {
+      font-size: 16px;
+    }
+  
+    .calculator-card {
+      padding: 40px 25px;
+    }
+  
+    .calculator-title {
+      font-size: 32px;
+    }
+  
+    .nav {
+      gap: 15px;
+    }
+  
+    .nav a {
+      font-size: 13px;
+    }
+  
+    .pricing-card {
+      padding: 30px 25px;
+    }
+  }
+  
