@@ -507,7 +507,7 @@
             rgba(0, 0, 0, 0.7), 
             rgba(0, 0, 0, 0.7)
         ),
-        url('/imgs/ct.png');
+        url('imgs/ct.png');
         background-size: cover;
         background-position: bottom center;
         background-repeat: no-repeat;
@@ -516,7 +516,7 @@
     }
 
     .pricing-card[data-package="hamilton"] {
-        background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/imgs/ht.png');
+        background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('imgs/ht.png');
         background-size: cover;
         background-position: bottom center;
         background-repeat: no-repeat;
@@ -524,7 +524,7 @@
       }
       
       .pricing-card[data-package="senna"] {
-        background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/imgs/mt.png');
+        background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('imgs/mt.png');
         background-size:cover;
         background-position: bottom center;
         background-repeat: no-repeat;
