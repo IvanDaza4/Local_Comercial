@@ -5,8 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promociones - RaceMAX</title>
     <link rel="stylesheet" href="promociones.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#f97316',
+            dark: '#0a0a0a',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slider {
+      transition: transform 0.6s ease-in-out;
+    }
+    .btn-primary {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+            to right,
+            rgba(243, 78, 22, 0.1),
+            transparent,
+            rgba(243, 78, 22, 0.1)
+        );
+        color: #fff; /* texto blanco sin hover */
+        border: 1px solid #ff5a00;
+        border-radius: 6px;
+        padding: 0.55rem 2rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.4px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow:
+          0 0 10px rgba(255, 90, 0, 0.4),
+          inset 0 0 6px rgba(255, 90, 0, 0.25);
+        overflow: hidden;
+        z-index: 0;
+      }
+      
+      /* ==== EFECTO DE RESPLANDOR NARANJA ANIMADO ==== */
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -4em;
+        width: 4em;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 90, 0, 0.15),
+          transparent
+        );
+        transition: transform 0.4s ease-in-out;
+        pointer-events: none;
+      }
+      
+      /* ==== EFECTO HOVER ==== */
+      .btn-primary:hover {
+        background: linear-gradient(
+            to right,
+            transparent,
+            rgba(243, 78, 22, 0.1),
+            transparent
+        );
+        color: #ff5a00;
+        border-color: #ff7a29;
+        transform: translateY(-1px);
+        box-shadow:
+          0 0 25px rgba(255, 90, 0, 0.8),
+          0 0 8px rgba(255, 90, 0, 0.6) inset;
+      }
+      
+      .btn-primary:hover::before {
+        transform: translateX(15em);
+      }
+      
+      /* ==== EFECTO ACTIVE (AL CLIC) ==== */
+      .btn-primary:active {
+        transform: scale(0.97);
+        box-shadow:
+          0 0 8px rgba(255, 90, 0, 0.6),
+          inset 0 0 5px rgba(255, 90, 0, 0.4);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    
+      .animate-fadeIn {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+  </style>
 </head>
-<body>
+<body class="bg-black text-white font-sans overflow-x-hidden">
+    <div id="overlay" class="fixed inset-0 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 z-40 md:hidden"></div>
+    <!-- Navbar -->
+    <div id="header"> </div>
     <!-- Video Background -->
     <div class="video-background">
         <video autoplay muted loop playsinline id="bg-video">
@@ -16,23 +142,7 @@
     </div>
 
     <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <img src="logo.png" alt="RaceMAX Logo" class="logo-img">
-            </div>
-            <nav class="nav">
-                <a href="index.html">Inicio</a>
-                <a href="#">Nosotros</a>
-                <a href="#">Juegos</a>
-                <a href="#">Equipamiento</a>
-                <a href="#">Eventos</a>
-                <a href="#">Blog</a>
-                <a href="#">Contacto</a>
-                <a href="promociones.html" class="active">Promociones</a>
-            </nav>
-        </div>
-    </header>
+    
 
     <!-- Hero Section -->
     <section class="hero">
@@ -51,7 +161,7 @@
                 <div class="pricing-card" data-package="colapinto">
                     <!-- Added helmet image in top right corner -->
                     <div class="helmet-image" >
-                        <img src="/imgs/colapinto.png" alt="Casco Colapinto" >
+                        <img src="imgs/colapinto.png" alt="Casco Colapinto" >
                     </div>
                     
                     <div class="card-icon">
@@ -91,7 +201,7 @@
                     
                     <!-- Added helmet image in top right corner -->
                     <div class="helmet-image">
-                        <img src="/imgs/hamilton.png" alt="Casco Hamilton">
+                        <img src="imgs/hamilton.png" alt="Casco Hamilton">
                     </div>
                     
                     <div class="card-icon">
@@ -132,7 +242,7 @@
                 <div class="pricing-card" data-package="senna">
                     <!-- Added helmet image in top right corner -->
                     <div class="helmet-image">
-                        <img src="/imgs/max.png" alt="Casco Ayrton Senna">
+                        <img src="imgs/max.png" alt="Casco Ayrton Senna">
                     </div>
                     
                     <div class="card-icon">
@@ -246,13 +356,11 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 RaceMAX. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <div id="footer"></div>
 
-    <script src="promociones.js"></script>
+    <!-- Footer -->
+    <script src="/js/encabezados.js"></script>
+    <script src="/js/promociones.js"></script>
+
 </body>
 </html>
