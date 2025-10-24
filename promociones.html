@@ -7,132 +7,133 @@
     <link rel="stylesheet" href="promociones.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#f97316',
-            dark: '#0a0a0a',
-          },
+    <script>
+        tailwind.config = {
+        theme: {
+            extend: {
+            colors: {
+                primary: '#f97316',
+                dark: '#0a0a0a',
+            },
+            },
         },
-      },
-    };
-  </script>
+        };
+    </script>
 
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
+    <style>
+        html {
+        scroll-behavior: smooth;
+        }
 
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
-    }
+        .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+        }
 
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+        }
 
-    .slider {
-      transition: transform 0.6s ease-in-out;
-    }
-    .btn-primary {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(
-            to right,
-            rgba(243, 78, 22, 0.1),
-            transparent,
-            rgba(243, 78, 22, 0.1)
-        );
-        color: #fff; /* texto blanco sin hover */
-        border: 1px solid #ff5a00;
-        border-radius: 6px;
-        padding: 0.55rem 2rem;
-        font-weight: 600;
-        font-size: 0.95rem;
-        letter-spacing: 0.4px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        box-shadow:
-          0 0 10px rgba(255, 90, 0, 0.4),
-          inset 0 0 6px rgba(255, 90, 0, 0.25);
-        overflow: hidden;
-        z-index: 0;
-      }
-      
-      /* ==== EFECTO DE RESPLANDOR NARANJA ANIMADO ==== */
-      .btn-primary::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -4em;
-        width: 4em;
-        height: 100%;
-        background: linear-gradient(
-          to right,
-          transparent,
-          rgba(255, 90, 0, 0.15),
-          transparent
-        );
-        transition: transform 0.4s ease-in-out;
-        pointer-events: none;
-      }
-      
-      /* ==== EFECTO HOVER ==== */
-      .btn-primary:hover {
-        background: linear-gradient(
+        .slider {
+        transition: transform 0.6s ease-in-out;
+        }
+        .btn-primary {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(
+                to right,
+                rgba(243, 78, 22, 0.1),
+                transparent,
+                rgba(243, 78, 22, 0.1)
+            );
+            color: #fff; /* texto blanco sin hover */
+            border: 1px solid #ff5a00;
+            border-radius: 6px;
+            padding: 0.55rem 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow:
+            0 0 10px rgba(255, 90, 0, 0.4),
+            inset 0 0 6px rgba(255, 90, 0, 0.25);
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        /* ==== EFECTO DE RESPLANDOR NARANJA ANIMADO ==== */
+        .btn-primary::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -4em;
+            width: 4em;
+            height: 100%;
+            background: linear-gradient(
             to right,
             transparent,
-            rgba(243, 78, 22, 0.1),
+            rgba(255, 90, 0, 0.15),
             transparent
-        );
-        color: #ff5a00;
-        border-color: #ff7a29;
-        transform: translateY(-1px);
-        box-shadow:
-          0 0 25px rgba(255, 90, 0, 0.8),
-          0 0 8px rgba(255, 90, 0, 0.6) inset;
-      }
-      
-      .btn-primary:hover::before {
-        transform: translateX(15em);
-      }
-      
-      /* ==== EFECTO ACTIVE (AL CLIC) ==== */
-      .btn-primary:active {
-        transform: scale(0.97);
-        box-shadow:
-          0 0 8px rgba(255, 90, 0, 0.6),
-          inset 0 0 5px rgba(255, 90, 0, 0.4);
-      }
+            );
+            transition: transform 0.4s ease-in-out;
+            pointer-events: none;
+        }
+        
+        /* ==== EFECTO HOVER ==== */
+        .btn-primary:hover {
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(243, 78, 22, 0.1),
+                transparent
+            );
+            color: #ff5a00;
+            border-color: #ff7a29;
+            transform: translateY(-1px);
+            box-shadow:
+            0 0 25px rgba(255, 90, 0, 0.8),
+            0 0 8px rgba(255, 90, 0, 0.6) inset;
+        }
+        
+        .btn-primary:hover::before {
+            transform: translateX(15em);
+        }
+        
+        /* ==== EFECTO ACTIVE (AL CLIC) ==== */
+        .btn-primary:active {
+            transform: scale(0.97);
+            box-shadow:
+            0 0 8px rgba(255, 90, 0, 0.6),
+            inset 0 0 5px rgba(255, 90, 0, 0.4);
+        }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-15px);
+        @keyframes fadeIn {
+            from {
+            opacity: 0;
+            transform: translateY(-15px);
+            }
+            to {
+            opacity: 1;
+            transform: translateY(0);
+            }
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-in-out;
         }
-      }
-    
-      .animate-fadeIn {
-        animation: fadeIn 0.3s ease-in-out;
-      }
-  </style>
+    </style>
 </head>
-<body class="bg-black text-white font-sans overflow-x-hidden">
+<body >
     <div id="overlay" class="fixed inset-0 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 z-40 md:hidden"></div>
-    <!-- Navbar -->
     <div id="header"> </div>
+    <!-- Navbar -->
+    
     <!-- Video Background -->
     <div class="video-background">
         <video autoplay muted loop playsinline id="bg-video">
@@ -286,77 +287,185 @@
     </section>
 
     <!-- Calculator Section -->
-    <section class="calculator-section" id="calculator">
+    <section class="calc-v2" id="calculator">
         <div class="container">
-            <div class="calculator-card">
-                <h2 class="calculator-title">Calculá <span class="accent">tu Ahorro</span></h2>
-                <p class="calculator-subtitle">Personalizá tu experiencia y descubrí cuánto ahorrás</p>
-                
-                <div class="calculator-content">
-                    <div class="calculator-form">
-                        <div class="form-group">
-                            <label for="package-select">Paquete Seleccionado</label>
-                            <!-- Updated select options with new package names -->
-                            <select id="package-select" onchange="updateCalculator()">
-                                <option value="">Elegí un paquete</option>
-                                <option value="colapinto">Colapinto - $9,990</option>
-                                <option value="hamilton">Hamilton - $17,990</option>
-                                <option value="senna">Ayrton Senna - $29,990</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="sessions">Cantidad de Sesiones</label>
-                            <input type="number" id="sessions" min="1" max="20" value="1" onchange="updateCalculator()">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="extras">Extras Opcionales</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" value="2000" onchange="updateCalculator()">
-                                    <span>Video adicional (+$2,000)</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" value="1500" onchange="updateCalculator()">
-                                    <span>Fotos impresas (+$1,500)</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" value="3000" onchange="updateCalculator()">
-                                    <span>Invitado extra (+$3,000)</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="calculator-results">
-                        <div class="result-row">
-                            <span class="result-label">Precio Original:</span>
-                            <span class="result-value" id="original-price">$0</span>
-                        </div>
-                        <div class="result-row">
-                            <span class="result-label">Precio con Descuento:</span>
-                            <span class="result-value" id="discounted-price">$0</span>
-                        </div>
-                        <div class="result-row savings">
-                            <span class="result-label">Total Ahorrado:</span>
-                            <span class="result-value savings-value" id="total-savings">$0</span>
-                        </div>
-                        <div class="result-row total">
-                            <span class="result-label">Total a Pagar:</span>
-                            <span class="result-value total-value" id="final-price">$0</span>
-                        </div>
-                        
-                        <button class="reserve-btn" onclick="window.location.href='contacto.html'">
-                            Reservar Ahora
-                        </button>
-                    </div>
+          
+          <!-- ===== HEADER ===== -->
+          <header class="calc-header">
+            <h2 class="title">
+              Armá tu <span class="accent">Experiencia</span>
+            </h2>
+            <p class="subtitle">
+              Elegí el paquete y el tipo de evento. Completá los datos y mirá tu resumen en tiempo real.
+            </p>
+          </header>
+      
+          <div class="calc-grid">
+            
+            <!-- ===== PANEL IZQUIERDO: CONFIGURACIÓN ===== -->
+            <div class="panel config-panel" id="config-panel" aria-live="polite">
+              
+              <!-- === Paso 1: Paquete === -->
+              <div class="card step" data-step="1">
+                <div class="step-head">
+                  <div class="step-num">1</div>
+                  <h3 class="step-title">Elegí tu paquete</h3>
                 </div>
-            </div>
+      
+                <div class="field">
+                  <label for="pkg-select">Paquete</label>
+                  <select id="pkg-select">
+                    <option value="">Seleccioná un paquete</option>
+                    <option value="colapinto">Colapinto — $20.000 por persona</option>
+                    <option value="hamilton">Hamilton — $28.000 por persona</option>
+                    <option value="verstappen">Verstappen — $32.000 por persona</option>
+                  </select>
+                </div>
+      
+                <!-- Beneficios dinámicos -->
+                <div class="pkg-benefits hidden" id="pkg-benefits">
+                  <div class="benefits-head">
+                    <span class="benefits-title">Beneficios incluidos</span>
+                    <span class="benefits-hours" id="benefit-hours">0 h</span>
+                  </div>
+                  <ul class="benefits-list" id="benefits-list"></ul>
+                </div>
+              </div>
+      
+              <!-- === Paso 2: Tipo de Evento === -->
+              <div class="card step" data-step="2">
+                <div class="step-head">
+                  <div class="step-num">2</div>
+                  <h3 class="step-title">Tipo de evento</h3>
+                </div>
+      
+                <div class="field">
+                  <label for="event-type">Evento</label>
+                  <select id="event-type">
+                    <option value="">Seleccioná un tipo de evento</option>
+                    <option value="cumple">Cumpleaños</option>
+                    <option value="corp">Corporativo</option>
+                    <option value="torneo">Torneo</option>
+                  </select>
+                </div>
+      
+                <!-- Campos dinámicos según el tipo de evento -->
+                <div class="dynamic-fields" id="dynamic-fields">
+                  
+                  <!-- Cumpleaños -->
+                  <div class="dyn-group hidden" data-event="cumple">
+                    <div class="field">
+                      <label for="cumple-nombre">Nombre del cumpleañero/a</label>
+                      <input type="text" id="cumple-nombre" placeholder="Ej: Sofía">
+                    </div>
+                    <div class="field">
+                      <label for="cumple-personas">Cantidad total de personas</label>
+                      <input type="number" id="cumple-personas" min="1" value="1">
+                    </div>
+                    <div class="field">
+                      <label for="cumple-fecha">Fecha esperada</label>
+                      <input type="date" id="cumple-fecha" />
+                    </div>
+                  </div>
+      
+                  <!-- Corporativo -->
+                  <div class="dyn-group hidden" data-event="corp">
+                    <div class="field">
+                      <label for="corp-empresa">Empresa</label>
+                      <input type="text" id="corp-empresa" placeholder="Ej: Racemax S.A.">
+                    </div>
+                    <div class="field">
+                      <label for="corp-personas">Cantidad total de personas</label>
+                      <input type="number" id="corp-personas" min="1" value="1">
+                    </div>
+                    <div class="field">
+                      <label for="corp-fecha">Fecha esperada</label>
+                      <input type="date" id="corp-fecha" />
+                    </div>
+                  </div>
+      
+                  <!-- Torneo -->
+                  <div class="dyn-group hidden" data-event="torneo">
+                    <div class="field">
+                      <label for="torneo-nombre">Nombre del torneo</label>
+                      <input type="text" id="torneo-nombre" placeholder="Ej: Gran Prix City 2025">
+                    </div>
+                    <div class="field">
+                      <label for="torneo-organizador">Nombre del titular/organizador</label>
+                      <input type="text" id="torneo-organizador" placeholder="Ej: Martín Gómez">
+                    </div>
+                    <div class="field">
+                      <label for="torneo-personas">Cantidad total de personas</label>
+                      <input type="number" id="torneo-personas" min="1" value="1">
+                    </div>
+                    <div class="field">
+                      <label for="torneo-fecha">Fecha esperada</label>
+                      <input type="date" id="torneo-fecha" />
+                    </div>
+                  </div>
+      
+                </div>
+              </div>
+      
+              <!-- === Paso 3: Participantes === -->
+              <div class="card step" data-step="3">
+                <div class="step-head">
+                  <div class="step-num">3</div>
+                  <h3 class="step-title">Participantes</h3>
+                </div>
+                <div class="field">
+                  <label for="personas-global">Cantidad total de personas</label>
+                  <input type="number" id="personas-global" min="1" value="1" />
+                  <small class="hint">
+                    Se sincroniza automáticamente con el campo del evento.
+                  </small>
+                </div>
+              </div>
+      
+            </div> <!-- Fin del panel de configuración -->
+      
+            <!-- ===== PANEL DERECHO: RESUMEN ===== -->
+            <aside class="panel summary-panel" aria-live="polite">
+              <div class="card summary-card">
+      
+                <h3 class="summary-title">Resumen</h3>
+      
+                <div class="summary-row"><span>Paquete</span><strong id="sum-pkg">—</strong></div>
+                <div class="summary-row"><span>Evento</span><strong id="sum-event">—</strong></div>
+                <div class="summary-row"><span>Horas incluidas</span><strong id="sum-hours">0 h</strong></div>
+                <div class="summary-row"><span>Precio por persona</span><strong id="sum-price-person">$0</strong></div>
+                <div class="summary-row"><span>Total de personas</span><strong id="sum-people">1</strong></div>
+      
+                <hr class="divider">
+      
+                <div class="summary-row"><span>Precio original</span><strong id="sum-original">$0</strong></div>
+                <div class="summary-row"><span>Precio con descuento</span><strong id="sum-discounted">$0</strong></div>
+                <div class="summary-row highlight"><span>Total ahorrado</span><strong id="sum-savings">$0</strong></div>
+      
+                <div class="summary-row total"><span>Total a pagar</span><strong id="sum-final">$0</strong></div>
+      
+                <hr class="divider">
+      
+                <div class="summary-benefits">
+                  <span class="benefits-title">Este paquete incluye:</span>
+                  <ul id="sum-benefits-list" class="benefits-list compact"></ul>
+                </div>
+      
+                <button class="reserve-btn" id="reserve-btn">Reservar Ahora</button>
+      
+                <p class="legal">
+                  *Precios finales sujetos a disponibilidad de fecha. Los descuentos se aplican automáticamente según el paquete.
+                </p>
+      
+              </div>
+            </aside>
+      
+          </div> <!-- Fin calc-grid -->
         </div>
-    </section>
+      </section>
+      
 
-    <div id="footer"></div>
+        <div id="footer"></div>
 
     <!-- Footer -->
     <script src="/js/encabezados.js"></script>

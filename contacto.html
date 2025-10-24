@@ -164,7 +164,7 @@
 
             <div class="flex-1">
               <label class="block text-sm mb-1">Consulta</label>
-              <textarea name="Consulta" rows="4" required placeholder="Contanos sobre tu consulta o el evento que querés organizar..." class="w-full bg-rm-bg border border-rm-line rounded-md px-3 py-2.5 text-sm focus:outline-none focus:border-rm-accent transition"></textarea>
+              <textarea id="consulta" name="Consulta" rows="4" required placeholder="Contanos sobre tu consulta o el evento que querés organizar..." class="w-full bg-rm-bg border border-rm-line rounded-md px-3 py-2.5 text-sm focus:outline-none focus:border-rm-accent transition"></textarea>
             </div>
 
             <div class="pt-4 text-center">
@@ -200,7 +200,24 @@
 
     <footer id="footer"></footer>
   <script>
+    const mensaje = localStorage.getItem("racemax_mensaje")
+      if (mensaje) {
+        const textarea = document.getElementById('consulta')
+        if (textarea) {
+          textarea.value = mensaje
+          textarea.classList.add("animate-fadeIn")
+        }
+
+        // Scroll hacia el formulario
+        setTimeout(() => {
+          textarea?.scrollIntoView({ behavior: "smooth", block: "center" })
+        }, 500)
+
+        // Limpiar después para no dejarlo guardado
+        localStorage.removeItem("racemax_mensaje")
+      }
     document.addEventListener("DOMContentLoaded", async () => {
+      // === CARGA DE HEADER Y FOOTER ===
       async function loadComponent(id, path) {
         try {
           const res = await fetch(path);
@@ -210,104 +227,18 @@
           console.error(`Error al cargar ${path}:`, err);
         }
       }
-
-      // Cargar header y footer
+    
       await Promise.all([
         loadComponent("header", "componentes/header.html"),
         loadComponent("footer", "componentes/footer.html")
       ]);
-
-      // Una vez que el header se haya cargado, inicializamos los eventos
-      initMenu();
-      initAnimations();
-      initFAQ();
-    });
-
-
-    // === MENÚ MOBILE ===
-    function initMenu() {
-      const btn = document.getElementById("menu-btn");
-      const menu = document.getElementById("mobile-menu");
-      const overlay = document.createElement("div");
-      overlay.id = "overlay";
-      overlay.className =
-        "fixed inset-0 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 z-40 md:hidden";
-      document.body.appendChild(overlay);
-
-      const icon = document.getElementById("menu-icon");
-      let isOpen = false;
-
-      const openMenu = () => {
-        isOpen = true;
-        menu.classList.remove("translate-x-full");
-        overlay.classList.remove("opacity-0", "pointer-events-none");
-        overlay.classList.add("opacity-100");
-        icon.innerHTML =
-          '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
-        document.body.style.overflow = "hidden";
-      };
-
-      const closeMenu = () => {
-        isOpen = false;
-        menu.classList.add("translate-x-full");
-        overlay.classList.add("opacity-0", "pointer-events-none");
-        overlay.classList.remove("opacity-100");
-        icon.innerHTML =
-          '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
-        document.body.style.overflow = "";
-      };
-
-      btn.addEventListener("click", () => (isOpen ? closeMenu() : openMenu()));
-      overlay.addEventListener("click", closeMenu);
-
-      // Cerrar menú al hacer clic en un enlace
-      menu.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", closeMenu);
-      });
-    }
-
-    // Animación scroll
-    const elements = document.querySelectorAll('.fade-up');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.2 });
-    elements.forEach(el => observer.observe(el));
-
-    // Menú móvil
-    const btn = document.getElementById('menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('overlay');
-    const icon = document.getElementById('menu-icon');
-    let isOpen = false;
-
-    const toggleMenu = () => {
-      isOpen = !isOpen;
-      if (isOpen) {
-        menu.classList.remove('translate-x-full');
-        overlay.classList.remove('hidden');
-        overlay.classList.add('opacity-100');
-        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
-      } else {
-        menu.classList.add('translate-x-full');
-        overlay.classList.add('hidden');
-        overlay.classList.remove('opacity-100');
-        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
-      }
-    };
-
-    btn.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
-
-    // Slider automático
-    const slider = document.getElementById('slider');
-    let index = 0;
-    setInterval(() => {
-      index = (index + 1) % 3;
-      slider.style.transform = `translateX(-${index * 100}%)`;
-    }, 4000);
     
+      initMenu();
+      initAnimations?.();
+      initFAQ?.();
+
+      
+    })
   </script>
 </body>
 </html>
