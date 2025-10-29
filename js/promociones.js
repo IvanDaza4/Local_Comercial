@@ -215,6 +215,9 @@ function calcAndRenderSummary() {
   reserveBtn.disabled = !isFormValid()
 }
 
+
+
+
 /* =========================
    Validación mínima
    ========================= */
@@ -323,6 +326,8 @@ reserveBtn.addEventListener("click", () => {
   if (!isFormValid()) return
   goToContactWithMessage()
 })
+
+
 
 
 /* =========================

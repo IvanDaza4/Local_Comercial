@@ -4,147 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promociones - RaceMAX</title>
-    <link rel="stylesheet" href="promociones.css">
+
+
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script>
-        tailwind.config = {
+      tailwind.config = {
         theme: {
-            extend: {
+          extend: {
             colors: {
-                primary: '#f97316',
-                dark: '#0a0a0a',
+              primary: '#f97316',
+              dark: '#0a0a0a',
             },
-            },
+          },
         },
-        };
+      };
     </script>
+  
+    <link rel="stylesheet" href="promociones.css">
+  
+  </head>
+<body class="bg-black text-white font-sans overflow-x-hidden" >
+  <header class="fixed w-full z-50 backdrop-blur-md bg-black/40 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <!-- LOGO -->
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="imgs/logo.png" alt="RaceMax Logo" class="w-[140px] max-w-full object-contain">
+      </a>
 
-    <style>
-        html {
-        scroll-behavior: smooth;
-        }
+      <!-- NAV DESKTOP -->
+      <nav class="hidden md:flex space-x-8 text-sm font-semibold">
+        <a href="./index.html" class="text-primary">Inicio</a>
+        <a href="./nosotros.html" class="hover:text-primary">Nosotros</a>
+        <a href="./juegos.html" class="hover:text-primary">Juegos</a>
+        <a href="./contacto.html" class="hover:text-primary">Contacto</a>
+        <a href="./promociones.html" class="hover:text-primary">Promociones</a>
+      </nav>
 
-        .fade-up {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-        }
-
-        .fade-up.visible {
-        opacity: 1;
-        transform: translateY(0);
-        }
-
-        .slider {
-        transition: transform 0.6s ease-in-out;
-        }
-        .btn-primary {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(
-                to right,
-                rgba(243, 78, 22, 0.1),
-                transparent,
-                rgba(243, 78, 22, 0.1)
-            );
-            color: #fff; /* texto blanco sin hover */
-            border: 1px solid #ff5a00;
-            border-radius: 6px;
-            padding: 0.55rem 2rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.4px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow:
-            0 0 10px rgba(255, 90, 0, 0.4),
-            inset 0 0 6px rgba(255, 90, 0, 0.25);
-            overflow: hidden;
-            z-index: 0;
-        }
-        
-        /* ==== EFECTO DE RESPLANDOR NARANJA ANIMADO ==== */
-        .btn-primary::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -4em;
-            width: 4em;
-            height: 100%;
-            background: linear-gradient(
-            to right,
-            transparent,
-            rgba(255, 90, 0, 0.15),
-            transparent
-            );
-            transition: transform 0.4s ease-in-out;
-            pointer-events: none;
-        }
-        
-        /* ==== EFECTO HOVER ==== */
-        .btn-primary:hover {
-            background: linear-gradient(
-                to right,
-                transparent,
-                rgba(243, 78, 22, 0.1),
-                transparent
-            );
-            color: #ff5a00;
-            border-color: #ff7a29;
-            transform: translateY(-1px);
-            box-shadow:
-            0 0 25px rgba(255, 90, 0, 0.8),
-            0 0 8px rgba(255, 90, 0, 0.6) inset;
-        }
-        
-        .btn-primary:hover::before {
-            transform: translateX(15em);
-        }
-        
-        /* ==== EFECTO ACTIVE (AL CLIC) ==== */
-        .btn-primary:active {
-            transform: scale(0.97);
-            box-shadow:
-            0 0 8px rgba(255, 90, 0, 0.6),
-            inset 0 0 5px rgba(255, 90, 0, 0.4);
-        }
-
-        @keyframes fadeIn {
-            from {
-            opacity: 0;
-            transform: translateY(-15px);
-            }
-            to {
-            opacity: 1;
-            transform: translateY(0);
-            }
-        }
-        
-        .animate-fadeIn {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-    </style>
-</head>
-<body >
-    <div id="overlay" class="fixed inset-0 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 z-40 md:hidden"></div>
-    <div id="header"> </div>
-    <!-- Navbar -->
-    
-    <!-- Video Background -->
-    <div class="video-background">
-        <video autoplay muted loop playsinline id="bg-video">
-            <source src="your-video-file.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
+      <!-- BOTÓN MENÚ MÓVIL -->
+      <button id="menu-btn" class="md:hidden text-3xl text-white focus:outline-none transition-transform hover:scale-110">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
     </div>
 
-    <!-- Header -->
-    
-
+    <!-- MENU MÓVIL -->
+    <div id="mobile-menu"
+      class="fixed top-0 right-0 h-full w-2/3 max-w-xs bg-neutral-900/95 backdrop-blur-lg border-l border-orange-500/20
+      transform translate-x-full transition-transform duration-300 flex flex-col items-end text-sm font-semibold space-y-5 p-8 z-50 md:hidden">
+      <a href="./index.html" class="text-primary text-base">Inicio</a>
+      <a href="./nosotros.html" class="hover:text-primary text-base">Nosotros</a>
+      <a href="./juegos.html" class="hover:text-primary text-base">Juegos</a>
+      <a href="./contacto.html" class="hover:text-primary text-base">Contacto</a>
+      <a href="./promociones.html" class="hover:text-primary text-base">Promociones</a>
+    </div>
+  </header>
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
@@ -177,7 +93,7 @@
                         <div class="price-original">Precio normal: $15,000</div>
                         <div class="price-current">
                             <span class="currency">$</span>
-                            <span class="amount">9,990</span>
+                            <span class="amount">20,000</span>
                         </div>
                         <div class="discount-badge">
                             Ahorrás $5,010
@@ -192,7 +108,7 @@
                     </ul>
                     
                     <!-- Updated onclick to use new package name -->
-                    <button class="select-btn" onclick="selectPackage('colapinto', 9990, 5010)">
+                    <button class="select-btn" onclick="window.location.href='#calculator'">
                         Cotizá tu evento
                     </button>
                 </div>
@@ -214,10 +130,10 @@
                     <p class="package-desc">Fortalecé el trabajo en equipo con una jornada de adrenalina y competencia sana entre colegas.</p>
                     
                     <div class="price-container">
-                        <div class="price-original">Precio normal: $28,000</div>
+                        <div class="price-original">Precio normal: $35,000</div>
                         <div class="price-current">
                             <span class="currency">$</span>
-                            <span class="amount">17,990</span>
+                            <span class="amount">28,000</span>
                         </div>
                         <div class="discount-badge">
                             Ahorrás $10,010
@@ -234,7 +150,7 @@
                     </ul>
                     
                     <!-- Updated onclick to use new package name -->
-                    <button class="select-btn" onclick="selectPackage('hamilton', 17990, 10010)">
+                    <button class="select-btn" onclick="window.location.href='#calculator'">
                         Cotizá tu evento
                     </button>
                 </div>
@@ -258,7 +174,7 @@
                         <div class="price-original">Precio normal: $45,000</div>
                         <div class="price-current">
                             <span class="currency">$</span>
-                            <span class="amount">29,990</span>
+                            <span class="amount">32,000</span>
                         </div>
                         <div class="discount-badge">
                             Ahorrás $15,010
@@ -277,7 +193,7 @@
                     </ul>
                     
                     <!-- Updated onclick to use new package name -->
-                    <button class="select-btn" onclick="selectPackage('senna', 29990, 15010)">
+                    <button class="select-btn" onclick="window.location.href='#calculator'">
                         Cotizá tu evento
                     </button>
                 </div>
@@ -468,7 +384,9 @@
     <div id="footer"></div>
 
 
-    <script src="./js/encabezados.js"></script>
-    <script src="./js/promociones.js"></script>
+    <script src="./js/promociones.js" defer></script>
+    
+    
+
 </body>
 </html>
