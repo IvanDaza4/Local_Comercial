@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadComponent("header", `${basePath}header.html`);
   initMenu();
 
+  // === MARCAR PÁGINA ACTIVA ===
+  highlightActivePage();
+
   // ====== LUEGO EL FOOTER ======
   await loadComponent("footer", `${basePath}footer.html`);
 
@@ -72,4 +75,28 @@ function initMenu() {
   btn.addEventListener("click", () => (isOpen ? closeMenu() : openMenu()));
   overlay.addEventListener("click", closeMenu);
   menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+}
+
+
+
+function highlightActivePage() {
+  // Obtiene el nombre real del archivo (o "index.html" si está vacío)
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+  // Selecciona todos los enlaces del header y menú móvil
+  const links = document.querySelectorAll("nav a, #mobile-menu a");
+
+  links.forEach((link) => {
+    // Limpia posibles prefijos como "./" o "../" del href
+    const linkPage = link.getAttribute("href").replace("./", "").replace("../", "");
+
+    // Si coincide el archivo actual con el href del link
+    if (currentPage === linkPage || (currentPage === "index.html" && linkPage === "index.html")) {
+      link.classList.remove("hover:text-primary");
+      link.classList.add("text-primary");
+    } else {
+      link.classList.remove("text-primary");
+      link.classList.add("hover:text-primary");
+    }
+  });
 }

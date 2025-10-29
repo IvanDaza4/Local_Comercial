@@ -199,6 +199,7 @@
   <!-- ===== FOOTER RACEMAX ===== -->
 
     <footer id="footer"></footer>
+    <script src="js/encabezados.js"></script>
   <script>
     const mensaje = localStorage.getItem("racemax_mensaje")
       if (mensaje) {
@@ -216,29 +217,7 @@
         // Limpiar después para no dejarlo guardado
         localStorage.removeItem("racemax_mensaje")
       }
-    document.addEventListener("DOMContentLoaded", async () => {
-      // === CARGA DE HEADER Y FOOTER ===
-      async function loadComponent(id, path) {
-        try {
-          const res = await fetch(path);
-          const html = await res.text();
-          document.getElementById(id).innerHTML = html;
-        } catch (err) {
-          console.error(`Error al cargar ${path}:`, err);
-        }
-      }
     
-      await Promise.all([
-        loadComponent("header", "componentes/header.html"),
-        loadComponent("footer", "componentes/footer.html")
-      ]);
-    
-      initMenu();
-      initAnimations?.();
-      initFAQ?.();
-
-      
-    })
   </script>
 </body>
 </html>
